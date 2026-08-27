@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Haskell / Cabal
+dist-newstyle/
+dist/
+*.hi
+*.o
+*.dyn_hi
+*.dyn_o
+
+# GHCi
+.ghci
+
+# Editors
+.vscode/
+.idea/
+
+# Emacs
+*~
+.#*
