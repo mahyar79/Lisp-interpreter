@@ -14,6 +14,12 @@ lookUpValue environment name = go environment
       | symbol == name = result
       | otherwise      = go rest
 
+primitives :: Environment
+primitives = [("+", PrimitiveProcedure addNumbers)]
+
+addNumbers :: [Expr] -> Expr
+addNumbers ((Number num1) : (Number num2) : []) = Number (num1 + num2)
+
 showExpr :: Expr -> String
 showExpr (Number n) = show n
 
