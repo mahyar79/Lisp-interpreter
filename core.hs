@@ -2,6 +2,7 @@ data Expr = Number Integer
           | Pair Expr Expr
           | Variable String
           | Null
+          | PrimitiveProcedure ([Expr] -> Expr)
 
 type Environment = [(String, Expr)]
 
