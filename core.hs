@@ -27,5 +27,6 @@ argumentsToList (Pair first rest) = first : argumentsToList rest
 showExpr :: Expr -> String
 showExpr (Number n) = show n
 
-eval :: Expr -> Integer
-eval (Number n) = n
+eval :: Environment -> Expr -> Expr
+eval environment (Number number) = Number number
+eval environment (Variable variable) = lookUpValue environment variable
