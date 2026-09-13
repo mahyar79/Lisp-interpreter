@@ -24,9 +24,15 @@ argumentsToList :: Expr -> [Expr]
 argumentsToList Null = []
 argumentsToList (Pair first rest) = first : argumentsToList rest
 
+applyPrimitive :: Expr -> Expr -> Expr
+applyPrimitive (PrimitiveProcedure function) arguments =
+  function (argumentsToList arguments)
+
 showExpr :: Expr -> String
 showExpr (Number n) = show n
 
 eval :: Environment -> Expr -> Expr
 eval environment (Number number) = Number number
 eval environment (Variable variable) = lookUpValue environment variable
+eval environment (Pair (Variable name) arguments) =
+  applyPrimitive (lookUpValue environment name) arguments
