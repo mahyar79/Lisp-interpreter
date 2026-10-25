@@ -28,7 +28,10 @@ applyPrimitive :: Expr -> Expr -> Expr
 applyPrimitive (PrimitiveProcedure function) arguments = function (argumentsToList arguments)
 
 showExpr :: Expr -> String
+showExpr Null = ""
 showExpr (Number n) = show n
+showExpr (Variable name) = name
+showExpr (Pair first rest) = "("++ showExpr first++" "++unwords (map showExpr (argumentsToList rest))++")"
 
 eval :: Environment -> Expr -> Expr
 eval environment (Number number) = Number number
