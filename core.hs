@@ -55,3 +55,19 @@ extractOperator (_ : xs) = collect xs
     where collect [] = []
           collect (x:xs) | isSpace x = []
                          | otherwise = x : collect xs
+
+extractArguments :: String -> (String, String)
+extractArguments [] = ([],[])
+extractArguments input = collect input ""
+    where
+        collect :: String -> String -> (String, String)
+        collect []  collected = (reverse collected, [])
+        collect (x:xs) collected | isSpace x || x == ')'= (reverse collected,xs)
+                                 | otherwise =  collect xs (x : collected)
+
+parseArguments :: String -> [Expr]
+parseArguments [] = []
+parseArguments (')':_) = []
+parseArguments input = parse argument : parseArguments rest
+    where
+        (argument, rest) = extractArguments input
