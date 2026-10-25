@@ -24,6 +24,11 @@ argumentsToList :: Expr -> [Expr]
 argumentsToList Null = []
 argumentsToList (Pair first rest) = first : argumentsToList rest
 
+listToArguments :: [Expr] -> Expr
+listToArguments [] = Null
+listToArguments (first:rest) = Pair first (listToArguments rest)
+
+
 applyPrimitive :: Expr -> Expr -> Expr
 applyPrimitive (PrimitiveProcedure function) arguments = function (argumentsToList arguments)
 
