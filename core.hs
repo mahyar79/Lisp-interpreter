@@ -46,8 +46,12 @@ eval environment (Variable variable) = lookUpValue environment variable
 eval environment (Pair (Variable name) arguments) = applyPrimitive (lookUpValue environment name) arguments
 
 parse :: String -> Expr
-parse x = Number(read x)
-
+parse "" = Null
+parse input@(x:xs)
+    | x == '(' = Pair( Variable (extractOperator input )) (listToArguments(parseArguments(snd(extractArguments xs))))
+parse x
+    | all isDigit x =  Number (read x)
+    | otherwise = Null
 
 extractOperator:: String -> String
 extractOperator [] = []
