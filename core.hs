@@ -1,3 +1,5 @@
+import Data.Char (isDigit, isSpace)
+
 data Expr = Number Integer
           | Pair Expr Expr
           | Variable String
@@ -45,3 +47,11 @@ eval environment (Pair (Variable name) arguments) = applyPrimitive (lookUpValue 
 
 parse :: String -> Expr
 parse x = Number(read x)
+
+
+extractOperator:: String -> String
+extractOperator [] = []
+extractOperator (_ : xs) = collect xs
+    where collect [] = []
+          collect (x:xs) | isSpace x = []
+                         | otherwise = x : collect xs
